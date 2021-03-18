@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/site.css">    
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-resource.js"></script>
+    <script src="js/angular-material.min.js"></script>
+    <script src="js/angular-aria.min.js"></script>
+    <script src="js/angular-animate.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/Chart.min.js"></script>    
+    <script src="js/angular-chart.min.js"></script>    
+</head>
+<body ng-controller="controller">
+  <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            <b>Kocaeli Üniversitesi</b>  Yazılım Lab.II - Web İndeksleme Uygulaması,             
+            <span class="font-italic">Cantekin Çelikhası -  Damla Şakar</span>
+        </a>
+    </nav>   
+
+    <div class="container-fluid body-content"> <!--body-content--> 
+        <div class="row"> <!--govde row--> 
+            <div class="float-left col-2"> <!--menu-->
+                <div class="bg-dark text-light pt-3 pb-3 menu">
+                    <ul>
+                        <li ng-click="soru=0; Title='Web İndeksleme Uygulaması'">
+                            <a href="#" class="text-light">Web İndeksleme Uygulaması</a>
+                        </li> 
+                        <li ng-click="soru=1; Title='Sayfada Geçen Kelimelerin Frekanslarını Hesaplama'">
+                            <a href="#" class="text-light">1-Sayfada Geçen Kelimelerin Frekanslarını Hesaplama</a>
+                        </li>        
+                        <li ng-click="soru=2; Title='Anahtar Kelime Çıkarma'">
+                            <a href="#" class="text-light">2-Anahtar Kelime Çıkarma</a>
+                        </li>                    
+                        <li ng-click="soru=3; Title='İki Sayfa (URL) Arasındaki Benzerlik Skorlaması'">
+                            <a href="#" class="text-light">3-İki Sayfa (URL) Arasındaki Benzerlik Skorlaması
+                            </a>
+                        </li>  
+                        <li ng-click="soru=4; Title='Site İndexleme ve Sıralama'">
+                            <a href="#" class="text-light">4-Site İndexleme ve Sıralama,<br> 5-Semantik Analiz
+                                </a>
+                        </li> 
+                    <!--
+                        <li ng-click="soru=5; Title='Semantik Analiz'">
+                            <a href="#" class="text-light">5-Semantik Analiz</a>
+                        </li> 
+
+                    --> 
+
+                        <li ng-click="soru=6; Title='Çalışmanın Çevrimiçi Yayımlanması ve Rapor'">
+                            <a href="#" class="text-light">6 Çalışmanın Çevrimiçi Yayımlanması ve Rapor
+                                </a>
+                        </li> 
+                        <li>&nbsp; </li>
+                        <li>&nbsp; </li>
+                        <li>&nbsp; </li>
+                    </ul>
+                </div>
+            </div> <!--menu-->
+            <div class="col-10 pl-4"> <!--govde 1--> 
+                <div class="row">
+                    <div class="row  w-100 modulTitle bg-dark text-light d-block p-2">
+                        {{Title}}
+                    </div>
+                </div>
+                <div class="container-fluid mt-3">
+                    <div ng-show="soru==0"> <!--Soru 0--> 
+                    <div >
+                        <p>Bu Proje Yazlım Laboratuvarı - II kapsamında aşağıdaki freamworkler kullanılarak </p>
+                        <p><span class="font-italic">Cantekin Çelikhası -  Damla Şakar</span> tarfından geliştirilmiştir</p>
+                        
+                        <div class="row">
+                            <div class="col-md-3">
+                                <b>FrontEnd</b> 
+                                <ul>                                                       
+                                    <li>AngularJS</li>
+                                    <li>Bootstrap</li>       
+                                    <li>chartJS</li>                             
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <b>BackEnd</b>
+                                <ul>
+                                    <li>Python</li>
+                                    <li>Flask --> Web api kullanımı</li>     
+                                    <li>Pandas --> Veri Analizi</li>      
+                                    <li>Re --> Regex ile html taglarını temizleme</li>      
+                                    <li>TurkishStemmer --> Kök Kelime Bulma</li>  
+                                </ul>
+                            </div>
+                        </div>
+                        
+                    </div> 
+                        <iframe src="YazılımLabII_Proje1.pdf" width="100%" height="500px">
+                                                </iframe>
+                    </div> <!--Soru 0--> 
+
+                    
+                    <div ng-show="soru==1">   <!--Soru 1-->                   
+                            <div class="form-group">
+                                <label> <b>A.1</b> Incelenecek URL adresi</label>                      
+                                <div class="row" >                                
+                                    <input class="form-control col-10" ng-model="url"/>
+                                    <div class="float-left ml-2"><button class="btn btn-primary" 
+                                        ng-click="s1incele()">İncele</button></div>
+                                </div>                            
+                            </div>        
+                            <div>
+                                <p>                                
+                                    Verilen bir URL için:
+                                    URL içeriğinde  her kelimenin kaçar defa yer aldığını <b>frekansını</b> bulmaktadır.                                
+                                </p>
+                            </div>                
+                            <canvas id="bar" class="chart chart-bar" height="100"
+                                chart-data="data" chart-labels="labels"> chart-series="series"
+                            </canvas>
+                            
+                    </div> <!--Soru 1--> 
+                    
+                    <div ng-show="soru==2">   <!--Soru 2-->                   
+                        <div class="form-group">
+                            <label> <b>A.2</b> Incelenecek URL adresi</label>                      
+                            <div class="row" >                                
+                                <input name="url" type="url" class="form-control col-10" ng-model="url"/>
+                                <div class="float-left ml-2"><button class="btn btn-primary" 
+                                    ng-click="s2incele()">İncele</button></div>
+                            </div>                            
+                        </div>        
+                        <div>
+                            <p>                                
+                                Verilen bir URL için:
+                                URL metninde geçen kelimelerden en önemli kelimelerin (sayfanın içerik özelliklerini tanımlayan ve
+                                kategorik özelliklerini yansıtan kelime kümesi) belirlenerek anahtar kelimelerin çıkarılır.
+                                <p><b>3 den fazla tekrar eden kök kelime </b> - gösterim ilk 10 </p>
+
+                            </p>
+                        </div>                
+                        <canvas id="s2" class="chart-horizontal-bar" height="100"
+                            chart-data="dataS2" chart-labels="labelS2"> chart-series="series"
+                        </canvas>
+                        
+                    </div> <!--Soru 2--> 
+
+                    <div ng-show="soru==3">   <!--Soru 3-->                   
+                        <div class="form-group">
+                            <label> <b>A.3</b> Kaynak - 1 URL adresi</label>                      
+                            <div class="row" >                                
+                                <input name="url" type="url" class="form-control col-10" ng-model="url"/>
+                            </div>                            
+                        </div>     
+                        <div class="form-group">
+                            <label> <b>A.3</b> Kaynak - 2 URL adresi</label>                      
+                            <div class="row" >                                
+                                <input name="url" type="url" class="form-control col-10" ng-model="url2"/>
+                                <div class="float-left ml-2"><button class="btn btn-primary" 
+                                    ng-click="s3karsilastir()">Benzerlik Bul</button></div>
+                            </div>                            
+                        </div>       
+                        <div>
+                            <p>                                
+                                Kaynak-1 URL için elde edilen anahtar kelimelerin Kaynak-2 URL’nin içeriğinde yer 
+                                alma sayısına dayalı bir benzerlik  skoru üretir.
+                                <p class="text-center"><b>Skor = (f2a + f2b + ...) / f2</b></p>
+                            </p>
+                        </div>                            
+                        <div class="row" ng-show="skor">
+                            <div class="col-md-4">
+                                <b>{{url}}</b>
+                                <canvas id="s3a" class="chart chart-bar" height="200"
+                                    chart-data="dataS3a" chart-labels="labelS3a"> chart-series="series"
+                                </canvas>
+                            </div>
+                           
+                            <div class="col-md-4">
+                                <b>{{url2}}</b>
+                                <canvas id="s3b" class="chart chart-bar" height="200"
+                                    chart-data="dataS3b" chart-labels="labelS3b"> chart-series="series"
+                                </canvas>
+                            </div>
+                            <div class="col-md-4">
+                                <b>Kesimi</b>
+                                <canvas id="s3c" class="chart chart-bar" height="200"
+                                    chart-data="dataS3c" chart-labels="labelS3c"> chart-series="series"
+                                </canvas>
+                            </div>
+                        </div>            
+                        <div ng-show="skor" class="col-12 text-center mt-2">
+                            <h3>Skor = {{skor}}</h3>
+                        </div>
+                        
+                    </div> <!--Soru 3--> 
+
+
+                    <div ng-show="soru==4">   <!--Soru 4-->                   
+                        <div class="form-group">
+                            <label> <b>A.3</b> Kaynak - 1 URL adresi</label>                      
+                            <div  >                                
+                                <input name="url" type="url" class="form-control col-10" ng-model="url"/>
+                            </div>                            
+                        </div>     
+                        <div class="form-group">
+                            <label> <b>A.4</b> Hedef - URL adresleri</label>                      
+                            <div class="row" >  
+                                <div class="col-4">
+                                    <input name="url" type="url" class="form-control col-10" ng-model="url2"/>
+                                    <div class="float-left mt-2"><button class="btn btn-primary" 
+                                        ng-click="urlEkle(url2)">Ekle</button></div>
+                                    <div class="float-left mt-2 ml-2"><button class="btn btn-primary" 
+                                            ng-click="s4karsilastir()">Benzerlik Bul</button></div>
+                                    <div class="float-left mt-2 ml-2"><button class="btn btn-success" 
+                                                ng-click="s5analiz()">Semantik Analiz</button></div>
+                                    <div class="clear-fix"></div> 
+                                    <br/>
+                                    <br/>
+                                    <div class="mt-2">
+                                        <md-progress-circular md-mode="indeterminate" ng-show="progress" ></md-progress-circular>
+                                    </div>
+                                    
+                                </div>  
+                                <div class="col-4" style="height: 150px">
+                                        <div style="overflow-y: scroll; height: 150px;">
+                                            <div class="mt-1" ng-repeat="item in Urls" >
+                                                <button ng-click="Sil(item)" class="btn btn-danger btn-sm">Sil</button>
+                                                    <span>{{item}}</span>                                                                                                    
+                                            </div>
+                                        </div>
+                                </div>                            
+                                <div class="col-4" style="overflow-y: scroll; height: 150px">                                    
+                                    <table border = "0">
+                                        <thead>
+                                            <tr>
+                                                <th>Alakalı Kelime Listesi</th>
+                                            </tr>                                        
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in alakali track by $index">
+                                                <td>{{item}}</td>
+                                            </tr>
+                                        </theatbodyd>                                    
+                                    </table>
+                                </div> 
+                            </div>                            
+                        </div>       
+                        <div>
+                            <p>                                
+                                <canvas id="s4" class="chart chart-bar" height="80"
+                                    chart-data="dataS4" chart-labels="labelS4"> chart-series="series"
+                                </canvas>
+                            </p>
+                        </div>   
+                        <div class="clear-fix"></div>                         
+                        <div class="row" ng-show="s4Skor">                            
+                            <div class="col-12">
+                                <table border = "0" class="col-12">
+                                    <thead>
+                                        <tr>
+                                            <th>Parent</th>
+                                            <th>Url</th>
+                                            <th>Skor</th>
+                                            <th>Grafik</th>
+                                        </tr>                                        
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in s4Skor | orderBy:'-skor'">
+                                            <td>{{item.parent}}</td>
+                                            <td>{{item.link}}</td>
+                                            <td>{{item.skor}}</td>
+                                            <td><button ng-click="GrafikGoster(item.kesisim)" class="btn btn-success btn-sm">Grafik</button></td>
+                                        </th>                                        
+                                    </tbody>                                    
+                                </table>
+                            </div>
+                        </div>            
+                       
+                        
+                    </div> <!--Soru 4--> 
+                </div> <!--container 1--> 
+            </div> <!--govde 1--> 
+        </div> <!--govde row--> 
+
+    </div> <!--body-content--> 
+
+    <hr />
+    <footer class="text-center">
+        <p>&copy; 2021 - Kocaeli Üniversitesi - Bilgisayar Muh. </p>
+        <p>BLM 307:Yazılım Lab.II, 2020-2021 Bahar Proje I</p>          
+    </footer>
+
+
+    <script src="js/jquery-3.3.1.min.js"></script>    
+    <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    
+</body>
+</html>
